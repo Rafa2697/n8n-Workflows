@@ -1,0 +1,148 @@
+{
+  "name": "Agente vestibular",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "prompt",
+              "type": "any"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        -32
+      ],
+      "id": "8be2eb29-8161-4f00-8d50-a94071e0742e",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        256,
+        176
+      ],
+      "id": "5e8e2d7f-f2e9-41d7-b716-10895a6f0278",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "GzChDplz4K2byrvr",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f24cc637-8d19-49d4-a781-8ba64a1192ad",
+              "name": "resposta",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        624,
+        -32
+      ],
+      "id": "365eec5b-7b67-4b18-8fa5-9eef0fbb62d7",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('When Executed by Another Workflow').item.json.prompt }}",
+        "options": {
+          "systemMessage": "=🧑‍🎓 Agente de Vestibular | Unisepe 2025\n\n**🧠 Processo Seletivo EAD 2025**  \nA seleção é feita por redação online. A matrícula custa R$ 30,00. A primeira mensalidade é em julho, com início das aulas em agosto. As inscrições estão abertas no site https://vestibular.unisepe.com.br.\n\n**📋 Etapas da Matrícula EAD**\n\n1. Faça a inscrição online\n2. Realize a redação\n3. Pague o boleto da matrícula\n4. Envie os documentos pelo acesso do candidato\n\n**📎 Documentação Necessária**\n\n- RG\n- CPF\n- Certidão de nascimento ou casamento\n- Histórico e certificado do ensino médio\n- Comprovante de residência\n- Foto 3x4 (frente e verso legíveis)\n\n**🏫 Processo Presencial e Semipresencial**  \nPrevisão de abertura: outubro de 2025  \nInício das aulas: 2026  \nSeleção: vestibular presencial  \nConsulte o edital e o site para mais detalhes\n\n**🎓 Cursos Oferecidos**\n\n**Presencial – Peruíbe:**\n\n- Direito\n- Enfermagem\n- Fisioterapia\n\n**Presencial – Itanhaém:**\n\n- Direito\n- Psicologia\n\n**EAD:**\n\n- Administração\n- Ciências Contábeis\n- Análise e Desenvolvimento de Sistemas\n- Educação Física Bacharelado\n- Gestão Pública\n- Logística\n- Marketing\n- Pedagogia\n- Processos Gerenciais\n- Recursos Humanos\n- Teologia\n\n**💸 Mensalidades EAD (até o dia 1 / de 2 a 10)**\n\n- Administração / Ciências Contábeis: R$ 130,00 / R$ 174,29\n- Análise e Desenvolvimento de Sistemas: R$ 329,88 / R$ 375,69\n- Educação Física Bacharelado: R$ 215,48 / R$ 269,35\n- Gestão Pública / Logística / Marketing / Processos Gerenciais / Recursos Humanos / Teologia: R$ 120,00 / R$ 152,75\n- Pedagogia: R$ 214,06 / R$ 250,97\n- Teologia: R$ 120,00 / R$ 158,18\n\n**🎯 Benefícios e Condições Especiais**\n\n- **Proers**: renda familiar até 4 salários mínimos, 120h de atividades por semestre e entrega de pasta na semana N2\n- **Monitoria Iesepe**: depende de vagas nas coordenações\n- **Transferência**: 1 semestre cursado em outra IES + histórico e ementas\n- **Bom Filho a Casa Retorna**: para ex-alunos diplomados, com adimplência até dia 10\n- **Convênio Empresa**: servidores públicos e parceiros com vínculo ativo e adimplência até dia 1 ou 5º dia útil\n- **Funai**: exige declaração da Funai\n\n**📞 Canais de Contato**\n\n- Site: https://vestibular.unisepe.com.br\n- WhatsApp: (13) 3456-2979\n- Telefone: (13) 3456-3055"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        256,
+        -32
+      ],
+      "id": "345907d9-e461-4a7e-aab0-dd360780c9ea",
+      "name": "AI Agent"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "prompt": "oi"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a8f71b74-5e1b-4df8-aca9-a433ee7332b5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3f636f3d17a15819db7db1ada786e5f7273a7d08c41c1248521750d4740e53a6"
+  },
+  "id": "AS7PbbZUcmHqt6Qq",
+  "tags": [
+    {
+      "createdAt": "2025-07-22T19:59:12.266Z",
+      "updatedAt": "2025-07-22T19:59:12.266Z",
+      "id": "6p30SSMRuzKAixmE",
+      "name": "unisepe"
+    }
+  ]
+}

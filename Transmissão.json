@@ -1,0 +1,656 @@
+{
+  "name": "Transmissão",
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "Vestibular",
+        "remoteJid": "=55{{ $('Get row(s) in sheet').item.json.Telefone }}",
+        "messageText": "={{ $('Get row(s) mesage').item.json.mesage }}",
+        "options_message": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        2976,
+        -64
+      ],
+      "id": "825ea792-d294-40d4-ae8c-49ed7ad3fe47",
+      "name": "Enviar texto",
+      "credentials": {
+        "evolutionApi": {
+          "id": "WL2PIO8arA3VIuUg",
+          "name": "Evolution account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8",
+          "mode": "list",
+          "cachedResultName": "Transmissão",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        1104,
+        -80
+      ],
+      "id": "a951b51b-89dd-4d93-aef6-6ae5138f2ba6",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "SIPzXnyTdMUn50BJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me",
+      "typeVersion": 1,
+      "position": [
+        3472,
+        -48
+      ],
+      "id": "2d9a717f-05ec-4004-829f-cebe76e6b1d5"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8",
+          "mode": "list",
+          "cachedResultName": "Transmissão",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tranmissão": "=Enviado {{ $now.format('dd-MM-yyyy') }}",
+            "row_number": 0,
+            "Telefone": "={{ $('Get row(s) in sheet').item.json.Telefone }}"
+          },
+          "matchingColumns": [
+            "Telefone"
+          ],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tranmissão",
+              "displayName": "tranmissão",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        3200,
+        -144
+      ],
+      "id": "3b77bf67-441b-43c9-b62d-9aa72908b822",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleApi": {
+          "id": "SIPzXnyTdMUn50BJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  {\n    json: {\n      randomSeconds: Math.floor(Math.random() * 30) + 1 // Gera número entre 1 e 10\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2448,
+        -64
+      ],
+      "id": "d729f4e9-28fc-4aef-a10b-f040d70db525",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e3d056b2-31ff-47b8-a919-b6b0074c5cfb",
+              "leftValue": "={{ $json.count % 10 === 0 }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1776,
+        -80
+      ],
+      "id": "2f82a587-5d56-4bae-a77c-84823b36030e",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1328,
+        -80
+      ],
+      "id": "6af58b9a-3585-4812-a659-1512bce8db65",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "incr",
+        "key": "=count"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        -80
+      ],
+      "id": "97037770-2785-4cd7-969d-2fcc24ede743",
+      "name": "Redis",
+      "credentials": {
+        "redis": {
+          "id": "6TPbwGcz0dYlH8oQ",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "key": "=count"
+      },
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        -320
+      ],
+      "id": "42b67f6a-5b34-412b-9fba-2c602922b337",
+      "name": "Deletar contador",
+      "credentials": {
+        "redis": {
+          "id": "6TPbwGcz0dYlH8oQ",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "prompt"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        -80
+      ],
+      "id": "62efe1e2-d392-4927-a4ed-6f0ce545b71f",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2112,
+        -160
+      ],
+      "id": "5df1f851-7664-496f-aaf8-4f187524f41f",
+      "name": "Wait 30",
+      "webhookId": "2d7bfc95-82d0-469c-a298-efad7f143b60"
+    },
+    {
+      "parameters": {
+        "amount": "={{ $json.randomSeconds }}"
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2624,
+        -64
+      ],
+      "id": "34578ff1-4a9f-4e79-b05b-5441cbfc7751",
+      "name": "Wait random",
+      "webhookId": "469cd34a-3041-43f2-9a5f-b6185fec9173"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8",
+          "mode": "list",
+          "cachedResultName": "Transmissão",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1917686584,
+          "mode": "list",
+          "cachedResultName": "mensagem",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8/edit#gid=1917686584"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        2800,
+        -64
+      ],
+      "id": "16b851fe-4a03-49cb-a414-dd97491a894d",
+      "name": "Get row(s) mesage",
+      "credentials": {
+        "googleApi": {
+          "id": "SIPzXnyTdMUn50BJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8",
+          "mode": "list",
+          "cachedResultName": "Transmissão",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1zbDusi8oqb71lTNQH06YRAg1B4j_Kg1OldcbUZ7cLq8/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "tranmissão": "=Error: {{ $json.error.message }}",
+            "Telefone": "={{ $('Get row(s) in sheet').item.json.Telefone }}"
+          },
+          "matchingColumns": [
+            "Telefone"
+          ],
+          "schema": [
+            {
+              "id": "Nome",
+              "displayName": "Nome",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Telefone",
+              "displayName": "Telefone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "tranmissão",
+              "displayName": "tranmissão",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        3200,
+        16
+      ],
+      "id": "b873f49a-2576-46ab-baf8-8febacd2dae4",
+      "name": "Update row in sheet1",
+      "credentials": {
+        "googleApi": {
+          "id": "SIPzXnyTdMUn50BJ",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "23b4886c-3ee0-43a7-b103-ed786dad5034",
+              "name": "Concluido",
+              "value": "Transmissão finalizada",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1776,
+        -320
+      ],
+      "id": "85d19564-ad6a-4816-9c13-974c624bebb2",
+      "name": "Resposta"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar texto": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update row in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Wait random",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Wait 30",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Deletar contador",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Redis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deletar contador": {
+      "main": [
+        [
+          {
+            "node": "Resposta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 30": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait random": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) mesage",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) mesage": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8d04144f-c351-4d06-a88a-a057a8278312",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3f636f3d17a15819db7db1ada786e5f7273a7d08c41c1248521750d4740e53a6"
+  },
+  "id": "jJ69WSUp2aKdH1Xk",
+  "tags": [
+    {
+      "createdAt": "2025-07-22T19:59:12.266Z",
+      "updatedAt": "2025-07-22T19:59:12.266Z",
+      "id": "6p30SSMRuzKAixmE",
+      "name": "unisepe"
+    }
+  ]
+}
