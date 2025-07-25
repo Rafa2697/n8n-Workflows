@@ -4,16 +4,16 @@
     {
       "parameters": {
         "resource": "messages-api",
-        "instanceName": "Vestibular",
+        "instanceName": "={{ $('When Executed by Another Workflow').item.json.instancia }}",
         "remoteJid": "=55{{ $('Get row(s) in sheet').item.json.Telefone }}",
-        "messageText": "={{ $('Get row(s) mesage').item.json.mesage }}",
+        "messageText": "=Olá {{ $('Get row(s) in sheet').item.json.Nome }}\n\n{{ $('Get row(s) mesage').item.json.mesage }}",
         "options_message": {}
       },
       "type": "n8n-nodes-evolution-api.evolutionApi",
       "typeVersion": 1,
       "position": [
-        2976,
-        -64
+        2848,
+        -112
       ],
       "id": "825ea792-d294-40d4-ae8c-49ed7ad3fe47",
       "name": "Enviar texto",
@@ -48,7 +48,7 @@
       "typeVersion": 4.6,
       "position": [
         1104,
-        -80
+        -128
       ],
       "id": "a951b51b-89dd-4d93-aef6-6ae5138f2ba6",
       "name": "Get row(s) in sheet",
@@ -65,8 +65,8 @@
       "name": "Replace Me",
       "typeVersion": 1,
       "position": [
-        3472,
-        -48
+        3360,
+        -112
       ],
       "id": "2d9a717f-05ec-4004-829f-cebe76e6b1d5"
     },
@@ -91,9 +91,8 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tranmissão": "=Enviado {{ $now.format('dd-MM-yyyy') }}",
-            "row_number": 0,
-            "Telefone": "={{ $('Get row(s) in sheet').item.json.Telefone }}"
+            "Telefone": "={{ $('Get row(s) in sheet').item.json.Telefone }}",
+            "Transmissão": "=Enviado {{ $now.format('dd-MM-yyyy') }}"
           },
           "matchingColumns": [
             "Telefone"
@@ -120,8 +119,8 @@
               "removed": false
             },
             {
-              "id": "tranmissão",
-              "displayName": "tranmissão",
+              "id": "Transmissão",
+              "displayName": "Transmissão",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -138,7 +137,7 @@
               "type": "number",
               "canBeUsedToMatch": true,
               "readOnly": true,
-              "removed": false
+              "removed": true
             }
           ],
           "attemptToConvertTypes": false,
@@ -149,8 +148,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.6,
       "position": [
-        3200,
-        -144
+        3120,
+        -192
       ],
       "id": "3b77bf67-441b-43c9-b62d-9aa72908b822",
       "name": "Update row in sheet",
@@ -168,8 +167,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2448,
-        -64
+        2224,
+        -112
       ],
       "id": "d729f4e9-28fc-4aef-a10b-f040d70db525",
       "name": "Code"
@@ -204,7 +203,7 @@
       "typeVersion": 2.2,
       "position": [
         1776,
-        -80
+        -128
       ],
       "id": "2f82a587-5d56-4bae-a77c-84823b36030e",
       "name": "If"
@@ -217,7 +216,7 @@
       "typeVersion": 3,
       "position": [
         1328,
-        -80
+        -128
       ],
       "id": "6af58b9a-3585-4812-a659-1512bce8db65",
       "name": "Loop Over Items"
@@ -231,7 +230,7 @@
       "typeVersion": 1,
       "position": [
         1552,
-        -80
+        -128
       ],
       "id": "97037770-2785-4cd7-969d-2fcc24ede743",
       "name": "Redis",
@@ -268,6 +267,9 @@
           "values": [
             {
               "name": "prompt"
+            },
+            {
+              "name": "instancia"
             }
           ]
         }
@@ -276,7 +278,7 @@
       "typeVersion": 1.1,
       "position": [
         880,
-        -80
+        -128
       ],
       "id": "62efe1e2-d392-4927-a4ed-6f0ce545b71f",
       "name": "When Executed by Another Workflow"
@@ -288,8 +290,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2112,
-        -160
+        2000,
+        -208
       ],
       "id": "5df1f851-7664-496f-aaf8-4f187524f41f",
       "name": "Wait 30",
@@ -302,8 +304,8 @@
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
       "position": [
-        2624,
-        -64
+        2448,
+        -112
       ],
       "id": "34578ff1-4a9f-4e79-b05b-5441cbfc7751",
       "name": "Wait random",
@@ -331,8 +333,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.6,
       "position": [
-        2800,
-        -64
+        2672,
+        -112
       ],
       "id": "16b851fe-4a03-49cb-a414-dd97491a894d",
       "name": "Get row(s) mesage",
@@ -364,8 +366,8 @@
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
-            "tranmissão": "=Error: {{ $json.error.message }}",
-            "Telefone": "={{ $('Get row(s) in sheet').item.json.Telefone }}"
+            "Telefone": "={{ $('Get row(s) in sheet').item.json.Telefone }}",
+            "Transmissão": "={{ $json.error.message }}"
           },
           "matchingColumns": [
             "Telefone"
@@ -392,8 +394,8 @@
               "removed": false
             },
             {
-              "id": "tranmissão",
-              "displayName": "tranmissão",
+              "id": "Transmissão",
+              "displayName": "Transmissão",
               "required": false,
               "defaultMatch": false,
               "display": true,
@@ -421,8 +423,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.6,
       "position": [
-        3200,
-        16
+        3120,
+        -16
       ],
       "id": "b873f49a-2576-46ab-baf8-8febacd2dae4",
       "name": "Update row in sheet1",
@@ -639,7 +641,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "8d04144f-c351-4d06-a88a-a057a8278312",
+  "versionId": "cb369402-c596-49cf-acf9-427886ef2bc9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3f636f3d17a15819db7db1ada786e5f7273a7d08c41c1248521750d4740e53a6"

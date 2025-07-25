@@ -408,8 +408,8 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1696,
-        1040
+        1648,
+        1024
       ],
       "typeVersion": 1,
       "id": "8f35bcca-79c3-4834-bf60-1ef5b0eb4ee7",
@@ -900,8 +900,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        1808,
-        1184
+        1728,
+        1200
       ],
       "id": "93b066f8-407c-41ff-8b43-84ddc1a80ad9",
       "name": "Vestibular"
@@ -941,8 +941,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        1984,
-        1184
+        1856,
+        1200
       ],
       "id": "2058025c-b168-4768-ab7d-506d5b09bc60",
       "name": "Secretaria"
@@ -954,6 +954,59 @@
           "value": "jJ69WSUp2aKdH1Xk",
           "mode": "list",
           "cachedResultName": "Transmissão"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "prompt": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('prompt', ``, 'string') }}",
+            "instancia": "={{ $('Dados').item.json.session }}"
+          },
+          "matchingColumns": [
+            "prompt"
+          ],
+          "schema": [
+            {
+              "id": "prompt",
+              "displayName": "prompt",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            },
+            {
+              "id": "instancia",
+              "displayName": "instancia",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string",
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        1984,
+        1200
+      ],
+      "id": "dad54cc0-41e2-4ee9-b007-c1752e56e281",
+      "name": "Transmissao"
+    },
+    {
+      "parameters": {
+        "description": "Agente financeiro com informações sobre bolsas e valores de documentos fornecidos pela secretaria. ",
+        "workflowId": {
+          "__rl": true,
+          "value": "xXphbZRCdfrcreow",
+          "mode": "list",
+          "cachedResultName": "Agente financeiro"
         },
         "workflowInputs": {
           "mappingMode": "defineBelow",
@@ -982,11 +1035,11 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2.2,
       "position": [
-        2160,
-        1184
+        2144,
+        1200
       ],
-      "id": "dad54cc0-41e2-4ee9-b007-c1752e56e281",
-      "name": "Transmissao"
+      "id": "29cf3dd1-c9e6-4bd7-820f-633cbffa2822",
+      "name": "Financeiro"
     }
   ],
   "pinData": {},
@@ -1314,6 +1367,17 @@
           }
         ]
       ]
+    },
+    "Financeiro": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -1321,7 +1385,7 @@
     "executionOrder": "v1",
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "b34470ed-64ef-4564-9b6b-118b9beab552",
+  "versionId": "70c43fa2-5206-44e7-8545-f2cbb910d2bf",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3f636f3d17a15819db7db1ada786e5f7273a7d08c41c1248521750d4740e53a6"

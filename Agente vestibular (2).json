@@ -59,7 +59,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        624,
+        704,
         -32
       ],
       "id": "365eec5b-7b67-4b18-8fa5-9eef0fbb62d7",
@@ -83,15 +83,7 @@
       "name": "AI Agent"
     }
   ],
-  "pinData": {
-    "When Executed by Another Workflow": [
-      {
-        "json": {
-          "prompt": "oi"
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "connections": {
     "When Executed by Another Workflow": {
       "main": [
@@ -125,13 +117,18 @@
           }
         ]
       ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "a8f71b74-5e1b-4df8-aca9-a433ee7332b5",
+  "versionId": "3b98879b-13bf-4fa6-a2e5-e61758fb2365",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "3f636f3d17a15819db7db1ada786e5f7273a7d08c41c1248521750d4740e53a6"

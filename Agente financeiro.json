@@ -1,0 +1,179 @@
+{
+  "name": "Agente financeiro",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "prompt"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        208,
+        -48
+      ],
+      "id": "3f1aa550-4474-413c-a280-2f453ff84ed9",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('When Executed by Another Workflow').item.json.prompt }}",
+        "options": {
+          "systemMessage": "=Solicitação de documentos, devem ser feita na secretaria virtual ou presencialmente na secretaria da unidade do aluno. \nse o aluno perguntar de algum documento, informe a ele que precisar fazer o pedido na secretaria, e se esse documento é pago ou sem cusrto. Consulte a base de dados para objeter essa informação.\n\n**Aluno com benefício IESEPE ou PROERS:** Deverá entregar o relatório de horas à coordenação e solicitar a renovação do benefício, no aluno online, via secretaria virtual.\n\n**Aluno com benefício \"Bom Filho a Casa Torna\":** Deverá solicitar a renovação no aluno online, via secretaria virtual.\n\n**Alunos com 4 ou mais reprovações:** Deverão solicitar a liberação da rematrícula via Aluno Online, na aba “REMATRICULA” e seguir o passo a passo.\n\n**Aluno com Programa de Pagamento Diferido (PPD):** Deverá solicitar a renovação no aluno online, na aba “SECRETARIA VIRTUAL”, e anexar o requerimento e os documentos do FIADOR no Aluno Online, em arquivo único.\n\n***Documentos necessários:*** Requerimento; Cópias legíveis do RG e CPF; Comprovante de renda atual (não será aceito I.R.); Certidão de Nascimento/Casamento; RG e CPF do cônjuge (quando aplicável); Comprovante de endereço atualizado.\n\n***Atenção: A renovação não será concluída em caso de ausência de documentos.***\n\n**Alunos com outros tipos de benefícios:** Devem entrar em contato com a Secretaria para obter informações detalhadas sobre a renovação.\n\n**Aluno com PROUNI:** Rematrícula a partir do dia **07/07/2025**, na secretaria virtual,  na aba “FINANCEIRO”.\n\n**Aluno do Programa FIES:** Aguarde as orientações sobre a rematrícula, que serão divulgadas nas redes sociais da Instituição assim que disponíveis.\n\n**Aluno com benefício Grêmio / Polícia Militar / Funcionário Público / Instituto / GOB:** Deverá solicitar a renovação no aluno online, via secretaria virtual, anexar o requerimento e a declaração em papel timbrado, assinada pelo responsável do RH ou Departamento Administrativo, utilizando o requerimento disponível na secretaria virtual, via Aluno Online.\n\n**Aluno com bolsa de transferência:** Deverá solicitar uma nova análise curricular na Secretaria e a renovação da bolsa."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.1,
+      "position": [
+        464,
+        -48
+      ],
+      "id": "7657db4d-3295-48d1-bf2c-2df2f769b3b5",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        448,
+        176
+      ],
+      "id": "c700f2d6-d3b2-44b0-b17d-6de9a24f9324",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "GzChDplz4K2byrvr",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f24cc637-8d19-49d4-a781-8ba64a1192ad",
+              "name": "resposta",
+              "value": "={{ $json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        816,
+        -48
+      ],
+      "id": "e0b1ff28-c969-4e0c-86f9-f9407e3fb52e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "getAll",
+        "databaseId": {
+          "__rl": true,
+          "value": "232afb90-7473-80df-88ba-e9712b40b6df",
+          "mode": "list",
+          "cachedResultName": "Valores das taxas e custos Administrativos",
+          "cachedResultUrl": "https://www.notion.so/232afb90747380df88bae9712b40b6df"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notionTool",
+      "typeVersion": 2.2,
+      "position": [
+        656,
+        176
+      ],
+      "id": "d4c3d293-c493-4bb9-87f3-38fd9c0b49ea",
+      "name": "Get many database pages in Notion",
+      "credentials": {
+        "notionApi": {
+          "id": "SBHsbbLXSY1pywpy",
+          "name": "Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many database pages in Notion": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "955db942-1420-4872-84fd-d1c72112084f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3f636f3d17a15819db7db1ada786e5f7273a7d08c41c1248521750d4740e53a6"
+  },
+  "id": "xXphbZRCdfrcreow",
+  "tags": [
+    {
+      "createdAt": "2025-07-22T19:59:12.266Z",
+      "updatedAt": "2025-07-22T19:59:12.266Z",
+      "id": "6p30SSMRuzKAixmE",
+      "name": "unisepe"
+    }
+  ]
+}
